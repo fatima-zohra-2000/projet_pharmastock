@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TailleAchat{% endblock %}
+
+{% block body %}
+    <h1>Create new TailleAchat</h1>
+
+    {{ include('taille_achat/_form.html.twig') }}
+
+    <a href="{{ path('app_taille_achat_index') }}">back to list</a>
+{% endblock %}

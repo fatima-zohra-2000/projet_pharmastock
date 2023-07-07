@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande{% endblock %}
+
+{% block body %}
+{#    <h1>Informations sur la Commande</h1>#}
+
+{#    <table class="table">#}
+{#        <tbody>#}
+{#            <tr>#}
+{#                <th>Id</th>#}
+{#                <td>{{ commande.id }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Num_commande</th>#}
+{#                <td>{{ commande.numCommande }}</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Total</th>#}
+{#                <td>{{ commande.total }} €</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>TVA</th>#}
+{#                <td>{{ commande.TVA }} %</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Mantant_TVA</th>#}
+{#                <td>{{ commande.mantantTVA }} €</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Date</th>#}
+{#                <td>{{ commande.date ? commande.date|date('Y-m-d H:i:s') : '' }}</td>#}
+{#            </tr>#}
+{#        </tbody>#}
+{#    </table>#}
+{#    <h2>Produits commandés :</h2>#}
+{#    <table class="table">#}
+{#        <thead>#}
+{#        <tr>#}
+{#            <th>Produit</th>#}
+{#            <th>Prix unitaire</th>#}
+{#            <th>Quantité</th>#}
+{#            <th>Total</th>#}
+{#        </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#        {% for tailleCommande in commande.tailleCommandes %}#}
+{#            <tr>#}
+{#                <td>{{ tailleCommande.produit.nom }}</td>#}
+{#                <td>{{ tailleCommande.produit.prix }} €</td>#}
+{#                <td>{{ tailleCommande.quantite }}</td>#}
+{#                <td>{{ tailleCommande.produit.prix * tailleCommande.quantite }} €</td>#}
+{#            </tr>#}
+{#        {% endfor %}#}
+{#        </tbody>#}
+{#    </table>#}
+
+{#    <a href="{{ path('app_commande_index') }}">back to list</a>#}
+
+{#    <a href="{{ path('app_commande_edit', {'id': commande.id}) }}">edit</a>#}
+
+{#    {{ include('commande/_delete_form.html.twig') }}#}
+
+    <div class="mx-4 my-3">
+        <h1 class="h1 text-gray-800 mb-5 text-center">Informations sur la Commande</h1>
+
+        <div class="card py-3 px-5 w-75 mx-auto bg-white">
+            <div class="card-body">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th>Numéro de commande</th>
+                        <td>{{ commande.numCommande }}</td>
+                    </tr>
+                    <tr>
+                        <th>Total</th>
+                        <td>{{ commande.total }} €</td>
+                    </tr>
+                    <tr>
+                        <th>TVA</th>
+                        <td>{{ commande.TVA }} %</td>
+                    </tr>
+                    <tr>
+                        <th>Montant TVA</th>
+                        <td>{{ commande.mantantTVA }} €</td>
+                    </tr>
+                    <tr>
+                        <th>Date</th>
+                        <td>{{ commande.date ? commande.date|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <h2 class="h2 text-gray-800 mb-4">Produits commandés :</h2>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Prix unitaire</th>
+                        <th>Quantité</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for tailleCommande in commande.tailleCommandes %}
+                        <tr>
+                            <td>{{ tailleCommande.produit.nom }}</td>
+                            <td>{{ tailleCommande.produit.prix }} €</td>
+                            <td>{{ tailleCommande.quantite }}</td>
+                            <td>{{ tailleCommande.produit.prix * tailleCommande.quantite }} €</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <div class="mt-5 d-flex">
+                    <a href="{{ path('app_commande_index') }}" class="mr-2 px-3 d-none d-sm-inline-block shadow-sm btn btn-sm btn-primary">Retour à la liste</a>
+                    <a href="{{ path('app_commande_edit', {'id': commande.id}) }}" class="mx-2 d-none d-sm-inline-block shadow-sm btn btn-sm btn-secondary">Modifier</a>
+                    {{ include('commande/_delete_form.html.twig') }}
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

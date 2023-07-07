@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion du Stock{% endblock %}
+
+{% block body %}
+
+    {% block content_list %}
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-5 px-4">
+            <h1 class="h3 mb-0 text-gray-800">Gestion du Stock</h1>
+            <span class="d-lg-inline">
+                <a href="{{ path('app_stock_new') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                    Nouveau Stock
+                </a>
+                <a href="{{ path('app_produit_new')}}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm">
+                    Créer un nouveau produit
+                </a>
+            </span>
+        </div>
+
+        <div class="container px-4">
+            <div class="row g-4 mb-4">
+                {% for produit in pagination %}
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="card card-produit-index bg-white">
+                            <img src="{{ vich_uploader_asset(produit, 'imageFile') }}" class="card-img-top" alt="Image du produit">
+                            <div class="card-body">
+                                <h6 class="card-title mb-3 font-weight-bold text-primary text-lg">{{ produit.nom }}</h6>
+                                <p class="card-text m-0 text-gray-800"><span class="font-weight-bold">Prix : </span>{{ produit.prix }} €</p>
+                                {% set stock = 0 %}
+                                {% for stockItem in produit.stock %}
+                                    {% set stock = stock + stockItem.quantite %}
+                                {% endfor %}
+                                <p class="card-text text-gray-800"><span class="font-weight-bold">Quantité : </span>{{ stock }} pcs</p>
+                                <a href="{{ path('app_produit_show', { id: produit.id }) }}" class="btn btn-primary d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Détails</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- Pagination -->
+            <nav aria-label="Pagination" class="custom-pagination mt-5">
+                {{ knp_pagination_render(pagination, null, {}, {
+                    'align': 'center',
+                    'rounded': true,
+                }) }}
+            </nav>
+        </div>
+    {% endblock %}
+{% endblock %}

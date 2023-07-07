@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TailleCommande{% endblock %}
+
+{% block body %}
+    <h1>Create new TailleCommande</h1>
+
+    {{ include('taille_commande/_form.html.twig') }}
+
+    <a href="{{ path('app_taille_commande_index') }}">back to list</a>
+{% endblock %}

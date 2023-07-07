@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit TailleAchat{% endblock %}
+
+{% block body %}
+    <h1>Edit TailleAchat</h1>
+
+    {{ include('taille_achat/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_taille_achat_index') }}">back to list</a>
+
+    {{ include('taille_achat/_delete_form.html.twig') }}
+{% endblock %}

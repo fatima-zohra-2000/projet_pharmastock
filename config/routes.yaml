@@ -1,0 +1,8 @@
+controllers:
+    resource: ../src/Controller/
+    type: attribute
+app_images_products:
+    path: /images/products/
+admin:
+    path: /admin
+    controller: App\Controller\Admin\DashboardController::index

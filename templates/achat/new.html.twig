@@ -1,0 +1,77 @@
+{#{% extends 'base.html.twig' %}#}
+
+{#{% block title %}New Achat{% endblock %}#}
+
+{#{% block body %}#}
+{#    <h1>Create new Achat</h1>#}
+
+{#    {{ include('achat/_form.html.twig') }}#}
+
+{#    <a href="{{ path('app_achat_index') }}">back to list</a>#}
+{#{% endblock %}#}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="mx-4 my-3">
+        <h1 class="h1 text-gray-800 mb-5 text-center">Modifier l'achat</h1>
+
+        {{ form_start(form) }}
+
+        <h2>Produits</h2>
+        <div id="tailleAchatsContainer">
+            {{ form_errors(form.tailleAchats) }}
+            {% for tailleAchatForm in form.tailleAchats %}
+                <div class="tailleAchatForm mb-4">
+                    {{ form_row(tailleAchatForm.produit, {'label': 'Produit', 'attr': {'class': 'select2 form-control custom-select bg-white'}}) }}
+                    {{ form_row(tailleAchatForm.quantite, {'label': 'Quantité', 'attr': {'class': 'form-control bg-white'}}) }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <button type="button" id="addProductBtn" data-prototype="{{ form_row(form.tailleAchats.vars.prototype)|e('html_attr') }}" class="btn btn-sm btn-secondary my-3">Ajouter un produit</button>
+
+        <h2>Fournisseur</h2>
+        {{ form_row(form.fournisseur, {'attr': {'class': 'form-control bg-white'}}) }}
+
+        <h2>TVA</h2>
+        {{ form_row(form.TVA, {'attr': {'class': 'form-control bg-white'}}) }}
+
+        <div class="d-flex align-items-center">
+            <button type="submit" class="btn btn-primary my-3">Modifier</button>
+            <a href="{{ path('app_achat_index') }}" class="mx-3 d-none d-sm-inline-block shadow-sm btn btn-secondary">
+                Annuler
+            </a>
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var addProductButton = document.getElementById('addProductBtn');
+            var tailleAchatsContainer = document.getElementById('tailleAchatsContainer');
+            var index = tailleAchatsContainer.querySelectorAll('.tailleAchatForm').length;
+
+            addProductButton.addEventListener('click', function () {
+                var prototype = addProductButton.getAttribute('data-prototype');
+                var newForm = prototype.replace(/__name__/g, index);
+                var newFormContainer = document.createElement('div');
+                newFormContainer.classList.add('tailleAchatForm');
+                newFormContainer.innerHTML = newForm;
+                tailleAchatsContainer.appendChild(newFormContainer);
+                index++;
+
+                // Sélectionnez le champ de formulaire 'produit' dans le formulaire nouvellement ajouté
+                var newProduitField = newFormContainer.querySelector('.select2');
+                // Initialisez Select2 sur le champ de formulaire 'produit'
+                $(newProduitField).select2();
+            });
+
+            // Initialisez Select2 sur les champs de formulaire 'produit' existants
+            var existingProduitFields = document.querySelectorAll('.select2');
+            existingProduitFields.forEach(function (field) {
+                $(field).select2();
+            });
+        });
+    </script>
+{% endblock %}

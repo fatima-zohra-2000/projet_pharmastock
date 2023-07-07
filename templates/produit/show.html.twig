@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit{% endblock %}
+
+{% block body %}
+{#<div id="content">#}
+    <!-- Page Heading -->
+{#    <div class="d-sm-flex align-items-center justify-content-between mb-5 px-4">#}
+{#        <span class="d-lg-inline">#}
+{#            <a href="{{ path('app_stock_new') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">#}
+{#                Nouveau Stock#}
+{#            </a>#}
+{#        </span>#}
+{#        <h1 class="h3 mb-0 text-gray-800">Gestion du Stock</h1>#}
+{#    </div>#}
+    <div class="container row align-items-center justify-content-around mt-5">
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{{ vich_uploader_asset(produit, 'imageFile') }}" class="card-img-top" alt="Image du produit">
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="d-flex flex-row align-items-center justify-content-between mb-4">
+                <h1 class="h1 text-gray-800">{{ produit.nom }}</h1>
+                <a href="{{ path('app_produit_index') }}" class="mx-2 d-none d-sm-inline-block shadow-sm btn btn-sm btn-primary">
+                    Retourner à la liste
+                </a>
+            </div>
+
+            <table class="table table-striped mt-lg-5">
+                <tbody>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ produit.nom }}</td>
+                </tr>
+                <tr>
+                    <th>Prix</th>
+                    <td>{{ produit.prix }}</td>
+                </tr>
+                <tr>
+                    <th>Ordonnance</th>
+                    <td>{{ produit.ordonnance ? 'Oui' : 'Non' }}</td>
+                </tr>
+                {% if produit.stock is not null %}
+                    {% set totalQuantite = 0 %}
+                    {% set fournisseurs = [] %}
+                    {% for stock in produit.stock %}
+                        {% set totalQuantite = totalQuantite + stock.quantite %}
+                        {% set fournisseur = stock.fournisseurId.nom %}
+                        {% if fournisseur not in fournisseurs %}
+                            {% set fournisseurs = fournisseurs|merge([fournisseur]) %}
+                        {% endif %}
+                    {% endfor %}
+                    <tr>
+                        <th>Sur Stock</th>
+                        <td><span class="bg-success text-white rounded p-1 px-2">Oui</span></td>
+                    </tr>
+                    <tr>
+                        <th>Quantité</th>
+                        <td>{{ totalQuantite }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fournisseur(s)</th>
+                        <td>{{ fournisseurs|join(', ') }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <th>Sur Stock</th>
+                        <td><span class="bg-danger text-white rounded p-1">Non</span></td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+
+            <div class="d-flex mt-5 mb-5">
+                <a href="{{ path('app_produit_edit', {'id': produit.id}) }}" class="mx-2 d-none d-sm-inline-block shadow-sm btn btn-sm btn-secondary">Modifier</a>
+                {{ include('produit/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

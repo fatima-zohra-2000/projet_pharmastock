@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Achat{% endblock %}
+
+{% block body %}
+    <h1>Achat</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ achat.id }}</td>
+            </tr>
+            <tr>
+                <th>Num_achat</th>
+                <td>{{ achat.numAchat }}</td>
+            </tr>
+            <tr>
+                <th>Fournisseur</th>
+                <td>{{ achat.fournisseur.nom }}</td>
+            </tr>
+            <tr>
+                <th>TVA</th>
+                <td>{{ achat.TVA }} %</td>
+            </tr>
+            <tr>
+                <th>Mantant_TVA</th>
+                <td>{{ achat.mantantTVA }} €</td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <td>{{ achat.total }} €</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ achat.date ? achat.date|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>Produits achetés :</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Produit</th>
+            <th>Prix unitaire</th>
+            <th>Quantité</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for tailleAchat in achat.tailleAchats %}
+            <tr>
+                <td>{{ tailleAchat.produit.nom }}</td>
+                <td>{{ tailleAchat.produit.prix }}</td>
+                <td>{{ tailleAchat.quantite }}</td>
+                <td>{{ tailleAchat.produit.prix * tailleAchat.quantite }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_achat_index') }}">back to list</a>
+
+    <a href="{{ path('app_achat_edit', {'id': achat.id}) }}">edit</a>
+
+    {{ include('achat/_delete_form.html.twig') }}
+{% endblock %}

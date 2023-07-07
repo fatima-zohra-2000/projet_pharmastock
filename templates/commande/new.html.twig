@@ -1,0 +1,191 @@
+{#{% extends 'base.html.twig' %}#}
+
+{#{% block title %}New Commande{% endblock %}#}
+
+{#{% block body %}#}
+{#    <h1>Create new Commande</h1>#}
+
+{#    {{ include('commande/_form.html.twig') }}#}
+
+{#    <a href="{{ path('app_commande_index') }}">back to list</a>#}
+{#    <script>#}
+{#        // Attendre que le document soit prêt#}
+{#        $(document).ready(function() {#}
+{#            // Initialiser Select2 sur le champ de formulaire avec la classe "select2"#}
+{#            $('.select2').select2();#}
+{#        });#}
+{#    </script>#}
+{#{% endblock %}#}
+
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{#    <h1>Nouvelle Commande</h1>#}
+
+{#    {{ form_start(form) }}#}
+
+{#    <h2>Client</h2>#}
+{#    <div>#}
+{#        {{ form_row(form.client, {'label': 'Client', 'attr': {'class': 'select2'}}) }}#}
+{#    </div>#}
+
+{#    <div id="new-client-form" style="display: none;">#}
+{#        {{ form_row(form.newClient.nom) }}#}
+{#        {{ form_row(form.newClient.adresse) }}#}
+{#        {{ form_row(form.newClient.tel) }}#}
+{#    </div>#}
+
+{#    <button type="button" class="add-new-client" name="add_new_client">Ajouter un nouveau client</button>#}
+
+{#    <h2>Produits</h2>#}
+{#    <div id="tailleCommandesContainer">#}
+{#        {{ form_errors(form.tailleCommandes) }}#}
+{#        {% for tailleCommandeForm in form.tailleCommandes %}#}
+{#            <div class="tailleCommandeForm">#}
+{#                {{ form_row(tailleCommandeForm.produit, {'label': 'Produit', 'attr': {'class': 'select2'}}) }}#}
+{#                {{ form_row(tailleCommandeForm.quantite, {'label': 'Quantité'}) }}#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    </div>#}
+
+{#    <button type="button" id="addProductBtn" data-prototype="{{ form_row(form.tailleCommandes.vars.prototype)|e('html_attr') }}">Ajouter un produit</button>#}
+
+{#    <h2>TVA</h2>#}
+{#    {{ form_row(form.TVA) }}#}
+
+{#    <button type="submit">Créer</button>#}
+{#    {{ form_end(form) }}#}
+
+{#    <script>#}
+{#        document.addEventListener('DOMContentLoaded', function () {#}
+{#            var addProductButton = document.getElementById('addProductBtn');#}
+{#            var tailleCommandesContainer = document.getElementById('tailleCommandesContainer');#}
+{#            var index = tailleCommandesContainer.querySelectorAll('.tailleCommandeForm').length;#}
+
+{#            addProductButton.addEventListener('click', function () {#}
+{#                var prototype = addProductButton.getAttribute('data-prototype');#}
+{#                var newForm = prototype.replace(/__name__/g, index);#}
+{#                var newFormContainer = document.createElement('div');#}
+{#                newFormContainer.classList.add('tailleCommandeForm');#}
+{#                newFormContainer.innerHTML = newForm;#}
+{#                tailleCommandesContainer.appendChild(newFormContainer);#}
+{#                index++;#}
+
+{#                // Sélectionnez le champ de formulaire 'produit' dans le formulaire nouvellement ajouté#}
+{#                var newProduitField = newFormContainer.querySelector('.select2');#}
+{#                // Initialisez Select2 sur le champ de formulaire 'produit'#}
+{#                $(newProduitField).select2();#}
+{#            });#}
+
+{#            // Initialisez Select2 sur les champs de formulaire 'produit' existants#}
+{#            var existingProduitFields = document.querySelectorAll('.select2');#}
+{#            existingProduitFields.forEach(function (field) {#}
+{#                $(field).select2();#}
+{#            });#}
+
+
+{#            const addNewClientButton = document.querySelector('.add-new-client');#}
+{#            const newClientForm = document.querySelector('#new-client-form');#}
+
+{#            addNewClientButton.addEventListener('click', function() {#}
+{#                if (newClientForm.style.display === 'none') {#}
+{#                    newClientForm.style.display = 'block';#}
+{#                    addNewClientButton.textContent = 'Annuler';#}
+{#                } else {#}
+{#                    newClientForm.style.display = 'none';#}
+{#                    addNewClientButton.textContent = 'Ajouter un nouveau client';#}
+{#                }#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+
+    <div class="mx-4 my-3">
+        <h1 class="h1 text-gray-800 mb-5 text-center">Nouvelle commande</h1>
+
+        {{ form_start(form) }}
+
+        <h2>Client</h2>
+        <div>
+            {{ form_row(form.client, {'label': 'Client', 'attr': {'class': 'select2 form-control custom-select bg-white'}}) }}
+        </div>
+
+        <div id="new-client-form" style="display: none;">
+            {{ form_row(form.newClient.nom, {'attr': {'class': 'form-control bg-white'}}) }}
+            {{ form_row(form.newClient.adresse, {'attr': {'class': 'form-control bg-white'}}) }}
+            {{ form_row(form.newClient.tel, {'attr': {'class': 'form-control bg-white'}}) }}
+        </div>
+
+        <button type="button" class="add-new-client btn btn-sm btn-secondary my-3">Ajouter un nouveau client</button>
+
+        <h2>Produits</h2>
+        <div id="tailleCommandesContainer">
+            {{ form_errors(form.tailleCommandes) }}
+            {% for tailleCommandeForm in form.tailleCommandes %}
+                <div class="tailleCommandeForm mb-4">
+                    {{ form_row(tailleCommandeForm.produit, {'label': 'Produit', 'attr': {'class': 'select2 form-control custom-select bg-white'}}) }}
+                    {{ form_row(tailleCommandeForm.quantite, {'label': 'Quantité', 'attr': {'class': 'form-control bg-white'}}) }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <button type="button" id="addProductBtn" data-prototype="{{ form_row(form.tailleCommandes.vars.prototype)|e('html_attr') }}" class="btn btn-sm btn-secondary my-3">Ajouter un produit</button>
+
+        <h2>TVA</h2>
+        {{ form_row(form.TVA, {'attr': {'class': 'form-control bg-white'}}) }}
+
+        <div class="d-flex align-items-center">
+
+            <button type="submit" class="btn btn-primary my-3">Créer</button>
+            <a href="{{ path('app_commande_index') }}" class="mx-3 d-none d-sm-inline-block shadow-sm btn btn-secondary">
+                Retourner à la liste
+            </a>
+        </div>
+        {{ form_end(form) }}
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+
+                const addNewClientButton = document.querySelector('.add-new-client');
+                const newClientForm = document.querySelector('#new-client-form');
+
+                addNewClientButton.addEventListener('click', function () {
+                    if (newClientForm.style.display === 'none') {
+                        newClientForm.style.display = 'block';
+                        addNewClientButton.textContent = 'Annuler';
+                    } else {
+                        newClientForm.style.display = 'none';
+                        addNewClientButton.textContent = 'Ajouter un nouveau client';
+                    }
+                });
+
+                var addProductButton = document.getElementById('addProductBtn');
+                var tailleCommandesContainer = document.getElementById('tailleCommandesContainer');
+                var index = tailleCommandesContainer.querySelectorAll('.tailleCommandeForm').length;
+
+                addProductButton.addEventListener('click', function () {
+                    var prototype = addProductButton.getAttribute('data-prototype');
+                    var newForm = prototype.replace(/__name__/g, index);
+                    var newFormContainer = document.createElement('div');
+                    newFormContainer.classList.add('tailleCommandeForm');
+                    newFormContainer.innerHTML = newForm;
+                    tailleCommandesContainer.appendChild(newFormContainer);
+                    index++;
+
+                    // Sélectionnez le champ de formulaire 'produit' dans le formulaire nouvellement ajouté
+                    var newProduitField = newFormContainer.querySelector('.select2');
+                    // Initialisez Select2 sur le champ de formulaire 'produit'
+                    $(newProduitField).select2();
+                });
+
+                // Initialisez Select2 sur les champs de formulaire 'produit' existants
+                // var existingProduitFields = document.querySelectorAll('.select2');
+                // existingProduitFields.forEach(function (field) {
+                //     $(field).select2();
+                // });
+
+            });
+        </script>
+    </div>
+{% endblock %}
+
