@@ -4,7 +4,7 @@ Projet Pharmastock, pour la gestion du stock d'une pharmacie.
 
 Projet réalisé avec Symfony.
 
-Apperçu :
+Aperçu :
 
 ![image](https://github.com/fatima-zohra-2000/projet_305/assets/79930498/531c3731-b81d-41d3-a2d1-b4a75e22b668)
 
